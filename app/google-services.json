@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "442954004011",
+    "firebase_url": "https://financialplanner-dcf96.firebaseio.com",
+    "project_id": "financialplanner-dcf96",
+    "storage_bucket": "financialplanner-dcf96.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:442954004011:android:170feb01ce907f16",
+        "android_client_info": {
+          "package_name": "com.example.raghavkishan.financialplanner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "442954004011-ubqd894q1qe6hqk7dpd1iem2phkk43ft.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.raghavkishan.financialplanner",
+            "certificate_hash": "6794dcec7db8304e42c059a925f08a3c6e64bc11"
+          }
+        },
+        {
+          "client_id": "442954004011-op12c3mknqae188mgj3gr6paiab2ibll.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2gqYsf66WsOpv61YGjCzQtIAAOp0jz9A"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "442954004011-op12c3mknqae188mgj3gr6paiab2ibll.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
