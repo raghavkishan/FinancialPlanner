@@ -29,7 +29,7 @@ public class LogIn extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 1;
 
-    private GoogleApiClient googleApiClient;
+    public static GoogleApiClient googleApiClient;
 
     private FirebaseAuth firebaseAuth;
 
