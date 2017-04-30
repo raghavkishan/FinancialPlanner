@@ -83,6 +83,7 @@ public class LogIn extends AppCompatActivity {
             } else {
                 // Google Sign In failed, update UI appropriately
                 // ...
+                //
             }
         }
     }
