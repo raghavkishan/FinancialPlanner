@@ -1,6 +1,7 @@
 package com.example.raghavkishan.financialplanner;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,6 +35,9 @@ public class LogIn extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
 
     private static final String TAG = "LogIn Activity";
+
+    private String personName,personGivenName,personFamilyName,personEmail,personId;
+    private Uri personPhoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +82,17 @@ public class LogIn extends AppCompatActivity {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             if (result.isSuccess()) {
                 // Google Sign In was successful, authenticate with Firebase
+                Log.d(TAG,"data inside onActivityResult"+result);
+
                 GoogleSignInAccount account = result.getSignInAccount();
+
+                personName = account.getDisplayName();
+                personGivenName = account.getGivenName();
+                personFamilyName = account.getFamilyName();
+                personEmail = account.getEmail();
+                personId = account.getId();
+                personPhoto = account.getPhotoUrl();
+
                 firebaseAuthWithGoogle(account);
             } else {
                 // Google Sign In failed, update UI appropriately
@@ -98,9 +112,17 @@ public class LogIn extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = firebaseAuth.getCurrentUser();
+                            Log.d(TAG, "inside signInWithCredential Success user"+user.getEmail());
                             //updateUI(user);
                             if (user != null){
-                                startActivity(new Intent(LogIn.this,MainActivity.class));
+
+                                Intent go = new Intent(LogIn.this,MainActivity.class);
+                                go.putExtra("personName",personName);
+                                go.putExtra("personGivenName",personGivenName);
+                                go.putExtra("personFamilyName",personFamilyName);
+                                go.putExtra("personId",personId);
+                                go.putExtra("personPhoto",personPhoto.toString());
+                                startActivity(go);
                             }
                         } else {
                             // If sign in fails, display a message to the user.
@@ -114,5 +136,6 @@ public class LogIn extends AppCompatActivity {
                     }
                 });
     }
+
 
 }

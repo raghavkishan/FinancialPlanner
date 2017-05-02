@@ -3,4 +3,10 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="profile_fragment_name_label"><b>Name: </b></string>
+    <string name="profile_fragment_email_label"><b>Email: </b></string>
+    <string name="sign_out_button_label">Sign Out</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

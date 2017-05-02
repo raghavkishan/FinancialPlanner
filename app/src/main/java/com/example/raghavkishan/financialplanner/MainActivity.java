@@ -1,12 +1,17 @@
 package com.example.raghavkishan.financialplanner;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -29,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity Activity";
 
+    private String personName,personGivenName,personFamilyName,personEmail,personId;
+    private Uri personPhoto;
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -36,13 +44,15 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
+                    //mTextMessage.setText(R.string.title_home);
+                    Log.d(TAG,"Inside onNavigation of the menu");
+                    onClickProfileOption(personName,personGivenName,personFamilyName,personEmail,personId,personPhoto);
                     return true;
                 case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
+                    //mTextMessage.setText(R.string.title_dashboard);
                     return true;
                 case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
+                    //mTextMessage.setText(R.string.title_notifications);
                     return true;
             }
             return false;
@@ -57,10 +67,34 @@ public class MainActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
+        personName = getIntent().getStringExtra("personName");
+        personGivenName = getIntent().getStringExtra("personGivenName");
+        personFamilyName = getIntent().getStringExtra("personFamilyName");
+        personEmail = getIntent().getStringExtra("personEmail");
+        personId = getIntent().getStringExtra("personId");
+        personPhoto = Uri.parse(getIntent().getStringExtra("personPhoto"));
+
+        onClickProfileOption(personName,personGivenName,personFamilyName,personEmail,personId,personPhoto);
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater =  getMenuInflater();
+        inflater.inflate(R.menu.actionbarmenu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.signOut:
+                SignOut();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void onClickSignOut(View view){
@@ -113,6 +147,28 @@ public class MainActivity extends AppCompatActivity {
                         // ...
                     }
                 });*/
+    }
+
+
+    public void onClickProfileOption(String personName,String personGivenName,String personFamilyName,
+                                      String personEmail,String personId,Uri personPhoto){
+
+        Bundle args = new Bundle();
+        args.putString("personName",personName);
+        args.putString("personGivenName",personGivenName);
+        args.putString("personFamilyName",personFamilyName);
+        args.putString("personEmail",personEmail);
+        args.putString("personId",personId);
+        args.putString("personPhoto",personPhoto.toString());
+
+        Log.d(TAG,"Inside onClickProfileOption");
+
+        FragmentManager fragments = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragments.beginTransaction();
+        Profile profile_fragment = new Profile();
+        profile_fragment.setArguments(args);
+        fragmentTransaction.replace(R.id.mainactivity_frame_layout, profile_fragment);
+        fragmentTransaction.commit();
     }
 
 }
